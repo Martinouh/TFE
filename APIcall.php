@@ -20,7 +20,7 @@
             $this->application_secret = $application_secret;
             $this->end_point = $end_point;
             $this->consumer_key = $consumer_key;
-
+            $this->api_connection();
         }
 
         public function api_connection()
