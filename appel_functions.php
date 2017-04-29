@@ -1,10 +1,8 @@
-  <?php
-  session_start();
-    include 'APIcall.php';
+<?php
+      session_start();
 
-    $vps_ip;
-    $result;
-
+      $result = [];
+      $vps_ip = '';
 
     function init_db($result,$vps_ip){
         $dir = 'sqlite:tfe.db';
@@ -88,15 +86,14 @@
 
     if(isset($_GET)){
       if($_GET['function'] == 'init_db'){
-        // $ovh = $_SESSION['ovh'];
-
+        var_dump($_SESSION['ovh']);
+        var_dump($_SESSION['test']);
         $result = $_SESSION['ovh']->get_vps_name();
         foreach ($result as $key => $value) {
             $vps_ip[$key] = $_SESSION['ovh']->get_vps_ip($value);
         }
-
         init_db($result,$vps_ip);
-        header("Location: ./index.php");
+        // header("Location: ./index.php");
       }
       if($_GET['function'] == 'script'){
         script();
