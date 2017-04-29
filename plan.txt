@@ -1,0 +1,19 @@
+Semaine 17 au 23 avril : Procédure de réinstallation
+Semaine 24 au 30 avril : Procédure de réinstallation ?
+Semaine 01 au 07 mai : connectivité SSH / Utilisation disque
+Semaine 08 au 14 mai : Monitorer les containers Docker (combien de containers, images)
+Semaine 15 au 21 mai : Tester automatiquement l'installation des services, web etc (nmap ?)
+Semaine 22 au 28 mai :
+Semaine 29 mai au 04 juin :
+
+
+
+
+
+Semaine 17 au 23 avril : Procédure de réinstallation / connectivité SSH
+Semaine 24 au 30 avril : Monitorer les containers Docker (combien de containers, images)
+Semaine 01 au 07 mai :   Utilisation disque
+Semaine 08 au 14 mai :
+Semaine 15 au 21 mai : Tester automatiquement l'installation des services, web etc (nmap ?)
+Semaine 22 au 28 mai :
+Semaine 29 mai au 04 juin :

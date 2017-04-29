@@ -1,0 +1,28 @@
+caption{
+  text-align: center;
+  color:#236B8E;
+  font-weight: bold;
+}
+table {
+  width: 100%;
+}
+tr:hover {background-color: #42C0FB}
+/*tr:nth-child(even) {background-color: #f2f2f2}*/
+th {
+  background-color: #236B8E;
+  color: white;
+}
+th, td {
+  border-bottom: 1px solid #ddd;
+}
+th, td {
+  padding: 15px;
+  text-align: center;
+}
+th {
+  height: 50px;
+}
+input{
+  text-align: center;
+  border: none;
+}

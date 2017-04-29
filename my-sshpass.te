@@ -1,0 +1,14 @@
+
+module my-sshpass 1.0;
+
+require {
+	type httpd_t;
+	type ptmx_t;
+	class chr_file { ioctl open read write };
+}
+
+#============= httpd_t ==============
+allow httpd_t ptmx_t:chr_file ioctl;
+
+#!!!! This avc is allowed in the current policy
+allow httpd_t ptmx_t:chr_file { open read write };
