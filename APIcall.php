@@ -14,8 +14,12 @@
         private $consumer_key;
 
 
-        function __construct(argument)
+        function __construct($application_key,$application_secret,$end_point,$consumer_key)
         {
+            $this->application_key = $application_key;
+            $this->application_secret = $application_secret;
+            $this->end_point = $end_point;
+            $this->consumer_key = $consumer_key;
 
         }
 
