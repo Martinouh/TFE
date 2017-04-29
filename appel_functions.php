@@ -4,22 +4,20 @@
     include 'get_vps_ip.php';
 
     function init_db($result,$vps_ip){
-      $dir = 'sqlite:tfe.db';
-      $dbh  = new PDO($dir) or die("cannot open the database");
-      foreach ($result as $key => $value) {
-
-          $statement = $dbh->prepare("INSERT INTO VPS (nom_vps, ip, password, prenom, nom, classe) VALUES (:nom_vps,:ip,:password,:prenom,:nom,:classe)");
-          $statement->execute(array(
-            "nom_vps" => $value,
-            "ip" => $vps_ip[$key+1][0],
-            "password" => "modify",
-            "prenom" => "modify",
-            "nom" => "modify",
-            "classe" => "modify"
-          ));
+        $dir = 'sqlite:tfe.db';
+        $dbh  = new PDO($dir) or die("cannot open the database");
+        foreach ($result as $key => $value) {
+            $statement = $dbh->prepare("INSERT INTO VPS (nom_vps, ip, password, prenom, nom, classe) VALUES (:nom_vps,:ip,:password,:prenom,:nom,:classe)");
+            $statement->execute(array(
+              "nom_vps" => $value,
+              "ip" => $vps_ip[$key+1][0],
+              "password" => "modify",
+              "prenom" => "modify",
+              "nom" => "modify",
+              "classe" => "modify"
+            ));
+        }
       }
-
-    }
 
     function script(){
 

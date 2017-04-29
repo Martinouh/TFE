@@ -12,10 +12,11 @@
         private $application_secret;
         private $end_point;
         private $consumer_key;
-
+        private $connected;
 
         function __construct($application_key,$application_secret,$end_point,$consumer_key)
         {
+            $this->connected = false;
             $this->application_key = $application_key;
             $this->application_secret = $application_secret;
             $this->end_point = $end_point;
@@ -29,11 +30,18 @@
              * Instanciate an OVH Client.
              * You can generate new credentials with full access to your account on the token creation page
              */
+             try {
+                $this->ovh = new Api( $this->application_key,  // Application Key
+                               $this->application_secret,  // Application Secret
+                               $this->end_point,      // Endpoint of API OVH Europe (List of available endpoints)
+                               $this->consumer_key); // Consumer Key
+                $this->connected = true;
+             } catch (Exception $e) {
+                
+             }
 
-             $this->ovh = new Api( $this->application_key,  // Application Key
-                             $this->application_secret,  // Application Secret
-                             $this->end_point,      // Endpoint of API OVH Europe (List of available endpoints)
-                             $this->consumer_key); // Consumer Key
+
+
         }
 
         public function get_vps_name()
