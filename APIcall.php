@@ -4,7 +4,7 @@
     /**
      *
      */
-    class ClassName
+    class APIcall
     {
         require __DIR__ . '/vendor/autoload.php';
         use \Ovh\Api;
