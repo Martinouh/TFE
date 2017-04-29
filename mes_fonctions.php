@@ -1,10 +1,5 @@
 <?php
 
-
-
-
-
-
     function creeTableau($tab,$table_title){
 
         $mon_tab =  "<table id=myTable>";

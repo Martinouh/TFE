@@ -1,7 +1,10 @@
 <?php
-
+    include 'APIcall.php';  
     include 'mes_fonctions.php';
-
+    session_start();
+    if (!isset($_SESSION['ovh'])) {
+      $_SESSION['ovh'] = new APIcall('C6ymrPvIUrFQCyOh','Cdm69xSv2Pi2LD1TZOwKpHrlYnMpVjWd','ovh-eu','UVa1VtsaMpNCBLNomMj2TF3Axqr00cxO');
+    }
 ?>
 
 <!DOCTYPE html>

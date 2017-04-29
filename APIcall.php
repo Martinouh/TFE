@@ -30,15 +30,12 @@
              * Instanciate an OVH Client.
              * You can generate new credentials with full access to your account on the token creation page
              */
-             try {
+             
                 $this->ovh = new Api( $this->application_key,  // Application Key
                                $this->application_secret,  // Application Secret
                                $this->end_point,      // Endpoint of API OVH Europe (List of available endpoints)
                                $this->consumer_key); // Consumer Key
                 $this->connected = true;
-             } catch (Exception $e) {
-                
-             }
 
 
 

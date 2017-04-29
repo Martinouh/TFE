@@ -1,7 +1,10 @@
   <?php
-    include 'connexion_api.php';
-    include 'get_vps_name.php';
-    include 'get_vps_ip.php';
+  session_start();
+    include 'APIcall.php';
+
+    $vps_ip;
+    $result;
+
 
     function init_db($result,$vps_ip){
         $dir = 'sqlite:tfe.db';
@@ -20,8 +23,7 @@
       }
 
     function script(){
-
-     shell_exec('bash select.sh');
+        shell_exec('bash select.sh');
     }
 
     function update_db($id,$password,$prenom,$nom,$classe){
@@ -86,6 +88,13 @@
 
     if(isset($_GET)){
       if($_GET['function'] == 'init_db'){
+        // $ovh = $_SESSION['ovh'];
+
+        $result = $_SESSION['ovh']->get_vps_name();
+        foreach ($result as $key => $value) {
+            $vps_ip[$key] = $_SESSION['ovh']->get_vps_ip($value);
+        }
+
         init_db($result,$vps_ip);
         header("Location: ./index.php");
       }
