@@ -26,8 +26,8 @@
             $mon_tab .= "<td><input class=".$entree['id']." type=text name='name' value=".$entree['name']."></td>";
             $mon_tab .= "<td><input class=".$entree['id']." type=text name='last_name' value=".$entree['last_name']."></td>";
             $mon_tab .= "<td><input class=".$entree['id']." type=text name='team' value=".$entree['team']."></td>";
-            $mon_tab .= "<td><input class=".$entree['id']." type=text name='class_room' value=".$entree['class']."></td>";
-            $mon_tab .= "<td><button id=".$entree['id']." value=modifyr>Modify</button>  </td>";
+            $mon_tab .= "<td><input class=".$entree['id']." type=text name='class_room' value=".$entree['class_room']."></td>";
+            $mon_tab .= "<td><button id=".$entree['id']." value=modify>Modify</button>  </td>";
             $mon_tab .= "<td><a href=#ex1 rel=modal:open><button class=".$entree['id']." value=init>Reinstall</button></a></td>";
             $mon_tab .= "</tr>";
         }

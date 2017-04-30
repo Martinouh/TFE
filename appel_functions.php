@@ -8,20 +8,26 @@
     //
     // }
 
+    $result = $ovh->get_vps_name();
+    foreach ($result as $key => $value) {
+        $vps_ip[$key] = $ovh->get_vps_ip($value);
 
+    }
+    var_dump($result);
+    var_dump($vps_ip);
     function init_db($result,$vps_ip){
         $dir = 'sqlite:tfe.db';
         $dbh  = new PDO($dir) or die("cannot open the database");
         foreach ($result as $key => $value) {
-            $statement = $dbh->prepare("INSERT INTO VPS (vps_name, ip, password, name, last_name, team, class) VALUES (:vps_name,:ip,:password,:name,:last_name,:team,:classe)");
+            $statement = $dbh->prepare("INSERT INTO VPS (vps_name, ip, password, name, last_name, team, class_room) VALUES (:vps_name,:ip,:password,:name,:last_name,:team,:class_room)");
             $statement->execute(array(
               "vps_name" => $value,
-              "ip" => $vps_ip[$key][0],
+              "ip" => $vps_ip[$key],
               "password" => "modify",
               "name" => "modify",
               "last_name" => "modify",
               "team" => "0",
-              "class" => "modify"
+              "class_room" => "modify"
             ));
         }
       }
@@ -30,24 +36,24 @@
         shell_exec('bash select.sh');
     }
 
-    function update_db($id,$password,$prenom,$nom,$classe){
+    function update_db($id,$password,$name,$last_name,$team,$class_room){
       $dir = 'sqlite:tfe.db';
       $dbh = new PDO($dir) or die("cannot open the database");
 
-      $statement = $dbh->prepare("UPDATE VPS SET password=:password, name=:name, last_name=:last_name, team=:team, class=:class WHERE id=:id");
+      $statement = $dbh->prepare("UPDATE VPS SET password=:password, name=:name, last_name=:last_name, team=:team, class_room=:class_room WHERE id=:id");
       $statement->execute(array(
         "id" => $id,
         "password" => $password,
         "name" => $name,
         "last_name" => $last_name,
         "team" => $team,
-        "class" => $class
+        "class_room" => $class_room
       ));
 
       echo json_encode(true);
     }
 
-    function get_vps_template($vps_name){
+    function reinit($vps_name){
 
       $result = $ovh->get_vps_template($vps_name);
       $arrayName = array();
@@ -64,7 +70,7 @@
       echo json_encode($data);
    }
 
-  function reinstall_vps($vps_name,$template_id){
+  function reinit2($vps_name,$template_id){
       $result = $ovh->reinstall_vps($vps_name,$template_id);
       echo json_encode($result);
   }
@@ -73,17 +79,14 @@
 
     if(isset($_GET)){
       if($_GET['function'] == 'init_db'){
-        $result = $ovh->get_vps_name();
-        foreach ($result as $key => $value) {
-            $vps_ip[$key] = $ovh->get_vps_ip($value);
-        }
-
         init_db($result,$vps_ip);
         header("Location: ./index.php");
+        exit;
       }
       if($_GET['function'] == 'script'){
         script();
         header("Location: ./index.php");
+        exit;
       }
       // else
       // {

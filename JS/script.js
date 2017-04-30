@@ -25,7 +25,8 @@ $( document ).ready(function() {
 
         var id = $(this).attr('class');
         var vps_name = $("td."+id).html();
-
+        console.log(id);
+        console.log(vps_name);
         $.ajax({
           url: './appel_functions.php',
           data: { 'function' : 'reinit', 'vps_name' : vps_name },

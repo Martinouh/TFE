@@ -79,9 +79,9 @@ function sortTable() {
    <div id=form_reinit>  </div><a href="#" rel="modal:close">Close</a>
    </div>
 
-      <a href='./appel_functions.php?function=init_db'><button>Initialiser la BD</button></a>
+    <a href='./appel_functions.php?function=init_db'><button>Initialiser la BD</button></a>
     <a href='./appel_functions.php?function=script'><button>Test</button></a>
-    <a href='./page4.php'>sess</a>
+    
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
     <?php
 
