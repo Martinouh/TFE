@@ -35,14 +35,14 @@
          */
         public static function Instance( $application_key = null, $application_secret = null, $end_point = null, $consumer_key = null )
         {
-            if($instance == null)
+            if(self::$instance == null)
             {
-                $instance = new APICall( $application_key, $application_secret, $end_point, $consumer_key );
+                self::$instance = new APICall( $application_key, $application_secret, $end_point, $consumer_key );
             }
 
-            return $instance;
+            return self::$instance;
         }
-
+        
 
         public function api_connection()
         {
