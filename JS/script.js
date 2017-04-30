@@ -25,8 +25,7 @@ $( document ).ready(function() {
 
         var id = $(this).attr('class');
         var vps_name = $("td."+id).html();
-        console.log(id);
-        console.log(vps_name);
+
         $.ajax({
           url: './appel_functions.php',
           data: { 'function' : 'reinit', 'vps_name' : vps_name },
@@ -58,11 +57,10 @@ function ajax_success(data,status,code){
   $('#form_reinit').html(select);
 
   $("input[value='ok']").click(function(e){
-       var option_value = $("#select_reinit").val();
+       var template_id = $("#select_reinit").val();
        e.preventDefault();
        console.log(vps_name);
-       console.log(option_value);
-       debugger
+       console.log(template_id);
   $.ajax({
           url: './appel_functions.php',
           data: { 'function' : 'reinit2', 'vps_name' : vps_name ,'template_id' : template_id },

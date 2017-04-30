@@ -12,7 +12,7 @@
         $mon_tab .= "<th onclick=sortTable(0)>name</th>";
         $mon_tab .= "<th onclick=sortTable(1)>last_name</th>";
         $mon_tab .= "<th>team</th>";
-        $mon_tab .= "<th>class</th>";
+        $mon_tab .= "<th>class_room</th>";
         $mon_tab .= "<th></th>";
         $mon_tab .= "<th></th>";
         $mon_tab .= "</tr>";

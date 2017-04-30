@@ -13,8 +13,7 @@
         $vps_ip[$key] = $ovh->get_vps_ip($value);
 
     }
-    var_dump($result);
-    var_dump($vps_ip);
+
     function init_db($result,$vps_ip){
         $dir = 'sqlite:tfe.db';
         $dbh  = new PDO($dir) or die("cannot open the database");
@@ -55,10 +54,10 @@
 
     function reinit($vps_name){
 
-      $result = $ovh->get_vps_template($vps_name);
+      $resultt = $ovh->get_vps_template($vps_name);
       $arrayName = array();
 
-      foreach ($result as $key => $value) {
+      foreach ($resultt as $key => $value) {
         $temp= $ovh->get_template_properties($vps_name,$value);
         $arrayName[] = $temp;
       }
@@ -71,28 +70,26 @@
    }
 
   function reinit2($vps_name,$template_id){
-      $result = $ovh->reinstall_vps($vps_name,$template_id);
-      echo json_encode($result);
+      $resulttt = $ovh->reinstall_vps($vps_name,$template_id);
+      echo json_encode($resulttt);
   }
 
 
 
-    if(isset($_GET)){
-      if($_GET['function'] == 'init_db'){
-        init_db($result,$vps_ip);
-        header("Location: ./index.php");
-        exit;
-      }
-      if($_GET['function'] == 'script'){
-        script();
-        header("Location: ./index.php");
-        exit;
-      }
-      // else
-      // {
-      //   echo 'erreur';
-      // }
+  if(isset($_GET)){
+    if($_GET['function'] == 'init_db'){
+      init_db($result,$vps_ip);
+      header("Location: ./index.php");
     }
+    if($_GET['function'] == 'script'){
+      script();
+      header("Location: ./index.php");
+    }
+    // else
+    // {
+    //   echo 'erreur';
+    // }
+  }
 
 
 
@@ -110,8 +107,6 @@
        // echo 'erreur';
       //}
     }
-
-
     else{
       echo 'erreur';
       header("Location: ./index.php");
