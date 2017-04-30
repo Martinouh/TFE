@@ -7,11 +7,11 @@ $( document ).ready(function() {
         var name = $("input."+id+"[name='name']").val();
         var last_name = $("input."+id+"[name='last_name']").val();
         var team = $("input."+id+"[name='team']").val();
-        var class = $("input."+id+"[name='class']").val();
+        var class_room = $("input."+id+"[name='class_room']").val();
 
         $.ajax({
           url: './appel_functions.php',
-          data: { 'function' : 'update_db', 'id' : id, 'password' : password, 'name' : name, 'last_name' : last_name, 'team' : team, 'class' : class },
+          data: { 'function' : 'update_db', 'id' : id, 'password' : password, 'name' : name, 'last_name' : last_name, 'team' : team, 'class_room' : class_room },
           type: 'POST',
           dataType: 'json'
         }).done(function(data,status){

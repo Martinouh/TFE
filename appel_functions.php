@@ -95,7 +95,7 @@
 
     if(isset($_POST)){
       if($_POST['function'] == 'update_db'){
-        update_db($_POST['id'],$_POST['password'],$_POST['name'],$_POST['last_name'],$_POST['team'],$_POST['class']);
+        update_db($_POST['id'],$_POST['password'],$_POST['name'],$_POST['last_name'],$_POST['team'],$_POST['class_room']);
       }
       if($_POST['function'] == 'reinit'){
         reinit($_POST['vps_name']);
