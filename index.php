@@ -1,13 +1,6 @@
 <?php
-    session_start();
     include 'APIcall.php';
-    if (!isset($_SESSION['ovh'])) {
-        $_SESSION['ovh'] = new APIcall('C6ymrPvIUrFQCyOh','Cdm69xSv2Pi2LD1TZOwKpHrlYnMpVjWd','ovh-eu','UVa1VtsaMpNCBLNomMj2TF3Axqr00cxO');
-    }
-    $_SESSION['test'] = 'ok';
     include 'mes_fonctions.php';
-
-    var_dump($_SESSION['test']);
 ?>
 
 <!DOCTYPE html>
@@ -86,9 +79,9 @@ function sortTable() {
    <div id=form_reinit>  </div><a href="#" rel="modal:close">Close</a>
    </div>
 
-      <a href='http://localhost/OVH2/appel_functions.php?function=init_db'><button>Initialiser la BD</button></a>
+      <a href='./appel_functions.php?function=init_db'><button>Initialiser la BD</button></a>
     <a href='./appel_functions.php?function=script'><button>Test</button></a>
-
+    <a href='./page4.php'>sess</a>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
     <?php
 

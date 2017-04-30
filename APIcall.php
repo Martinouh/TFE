@@ -7,6 +7,12 @@
      */
     class APIcall
     {
+
+        /**
+          * Singleton Implementation.
+        */
+        private static $instance;
+
         private $ovh;
         private $application_key;
         private $application_secret;
@@ -24,13 +30,27 @@
             $this->api_connection();
         }
 
+        /**
+          * Singleton Implementation.
+         */
+        public static function Instance( $application_key = null, $application_secret = null, $end_point = null, $consumer_key = null )
+        {
+            if($instance == null)
+            {
+                $instance = new APICall( $application_key, $application_secret, $end_point, $consumer_key );
+            }
+
+            return $instance;
+        }
+
+
         public function api_connection()
         {
             /**
              * Instanciate an OVH Client.
              * You can generate new credentials with full access to your account on the token creation page
              */
-             
+
                 $this->ovh = new Api( $this->application_key,  // Application Key
                                $this->application_secret,  // Application Secret
                                $this->end_point,      // Endpoint of API OVH Europe (List of available endpoints)
@@ -76,6 +96,16 @@
             **/
             return $this->ovh->get('/vps/'.$vps_name.'/templates');
         }
+
+        public function get_template_properties($vps_name,$template_id)
+        {
+            /**
+              * This will return the properties for a given template
+              * (bitFormat, distribution name, language available).
+            **/
+            return $this->ovh->get('/vps/'.$vps_name.'/templates/'.$template_id);
+        }
+
 
         public function reinstall_vps($vps_name,$template_id)
         {

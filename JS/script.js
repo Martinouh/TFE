@@ -1,16 +1,17 @@
 $( document ).ready(function() {
 
-      $("button[value='modifier']").click(function(event){
+      $("button[value='modify']").click(function(event){
 
         var id = $(this).attr('id');
         var password = $("input."+id+"[name='password']").val();
-        var prenom = $("input."+id+"[name='prenom']").val();
-        var nom = $("input."+id+"[name='nom']").val();
-        var classe = $("input."+id+"[name='classe']").val();
+        var name = $("input."+id+"[name='name']").val();
+        var last_name = $("input."+id+"[name='last_name']").val();
+        var team = $("input."+id+"[name='team']").val();
+        var class = $("input."+id+"[name='class']").val();
 
         $.ajax({
           url: './appel_functions.php',
-          data: { 'function' : 'update_db', 'id' : id, 'password' : password, 'prenom' : prenom, 'nom' : nom, 'classe' : classe },
+          data: { 'function' : 'update_db', 'id' : id, 'password' : password, 'name' : name, 'last_name' : last_name, 'team' : team, 'class' : class },
           type: 'POST',
           dataType: 'json'
         }).done(function(data,status){
@@ -23,11 +24,11 @@ $( document ).ready(function() {
       $("button[value='init']").click(function(event){
 
         var id = $(this).attr('class');
-        var nom_vps = $("td."+id).html();
+        var vps_name = $("td."+id).html();
 
         $.ajax({
           url: './appel_functions.php',
-          data: { 'function' : 'reinit', 'nom_vps' : nom_vps },
+          data: { 'function' : 'reinit', 'vps_name' : vps_name },
           type: 'POST',
           dataType: 'json',
 	        success : ajax_success,
@@ -41,7 +42,7 @@ $( document ).ready(function() {
 function ajax_success(data,status,code){
 
   var select = '';
-  var nom_vps = data['nom_vps'];
+  var vps_name = data['vps_name'];
   var os_info = data['os_info'];
 
   select += '<form name=myForm action=# method=post><p>reinit pour le vps : </p><select id=select_reinit>';
@@ -58,12 +59,12 @@ function ajax_success(data,status,code){
   $("input[value='ok']").click(function(e){
        var option_value = $("#select_reinit").val();
        e.preventDefault();
-       console.log(nom_vps);
+       console.log(vps_name);
        console.log(option_value);
        debugger
   $.ajax({
           url: './appel_functions.php',
-          data: { 'function' : 'reinit2', 'nom_vps' : nom_vps ,'option_value' : option_value },
+          data: { 'function' : 'reinit2', 'vps_name' : vps_name ,'template_id' : template_id },
           type: 'POST',
           dataType: 'json',
           success: function(data, status, code){

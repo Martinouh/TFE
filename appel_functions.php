@@ -1,21 +1,27 @@
 <?php
-      session_start();
+    include 'APIcall.php';
+    $ovh = APICall::Instance('C6ymrPvIUrFQCyOh','Cdm69xSv2Pi2LD1TZOwKpHrlYnMpVjWd','ovh-eu','UVa1VtsaMpNCBLNomMj2TF3Axqr00cxO');
 
-      $result = [];
-      $vps_ip = '';
+
+    // function associate_vpsname_to_ip(){
+    //
+    //
+    // }
+
 
     function init_db($result,$vps_ip){
         $dir = 'sqlite:tfe.db';
         $dbh  = new PDO($dir) or die("cannot open the database");
         foreach ($result as $key => $value) {
-            $statement = $dbh->prepare("INSERT INTO VPS (nom_vps, ip, password, prenom, nom, classe) VALUES (:nom_vps,:ip,:password,:prenom,:nom,:classe)");
+            $statement = $dbh->prepare("INSERT INTO VPS (vps_name, ip, password, name, last_name, team, class) VALUES (:vps_name,:ip,:password,:name,:last_name,:team,:classe)");
             $statement->execute(array(
-              "nom_vps" => $value,
-              "ip" => $vps_ip[$key+1][0],
+              "vps_name" => $value,
+              "ip" => $vps_ip[$key][0],
               "password" => "modify",
-              "prenom" => "modify",
-              "nom" => "modify",
-              "classe" => "modify"
+              "name" => "modify",
+              "last_name" => "modify",
+              "team" => "0",
+              "class" => "modify"
             ));
         }
       }
@@ -28,72 +34,52 @@
       $dir = 'sqlite:tfe.db';
       $dbh = new PDO($dir) or die("cannot open the database");
 
-      $statement = $dbh->prepare("UPDATE VPS SET password=:password, prenom=:prenom, nom=:nom, classe=:classe WHERE id=:id");
+      $statement = $dbh->prepare("UPDATE VPS SET password=:password, name=:name, last_name=:last_name, team=:team, class=:class WHERE id=:id");
       $statement->execute(array(
         "id" => $id,
         "password" => $password,
-        "prenom" => $prenom,
-        "nom" => $nom,
-        "classe" => $classe
+        "name" => $name,
+        "last_name" => $last_name,
+        "team" => $team,
+        "class" => $class
       ));
 
       echo json_encode(true);
-
-      // $sql="select * from VPS";
-      //
-      // $stmt = $dbh->prepare($sql);
-      // $stmt->execute();
-      // $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-      // echo json_encode($res); //renvoie vers le JS
     }
 
-    function reinit($nom_vps){
+    function get_vps_template($vps_name){
 
-      global $ovh;
-
-      $result = $ovh->get('/vps/'.$nom_vps.'/templates');
-
+      $result = $ovh->get_vps_template($vps_name);
       $arrayName = array();
 
-
-
       foreach ($result as $key => $value) {
-        $temp= $ovh->get('/vps/'.$nom_vps.'/templates/'.$value);
+        $temp= $ovh->get_template_properties($vps_name,$value);
         $arrayName[] = $temp;
       }
 
       $data = array();
-      $data['nom_vps'] = $nom_vps;
+      $data['vps_name'] = $vps_name;
       $data['os_info'] = $arrayName;
 
       echo json_encode($data);
    }
 
-  function reinit2($nom_vps,$option_value){
-
-    global $ovh;
-
-    $result = $ovh->post('/vps/'.$nom_vps.'/reinstall', array(
-    'doNotSendPassword' => false, // If asked, the installation password will NOT be sent (only if sshKey defined) (type: boolean)
-    'templateId' => $option_value, // Required: Id of the vps.Template fetched in /templates list (type: long)
-    ));
-
-    echo json_encode($result);
+  function reinstall_vps($vps_name,$template_id){
+      $result = $ovh->reinstall_vps($vps_name,$template_id);
+      echo json_encode($result);
   }
 
 
 
     if(isset($_GET)){
       if($_GET['function'] == 'init_db'){
-        var_dump($_SESSION['ovh']);
-        var_dump($_SESSION['test']);
-        $result = $_SESSION['ovh']->get_vps_name();
+        $result = $ovh->get_vps_name();
         foreach ($result as $key => $value) {
-            $vps_ip[$key] = $_SESSION['ovh']->get_vps_ip($value);
+            $vps_ip[$key] = $ovh->get_vps_ip($value);
         }
+
         init_db($result,$vps_ip);
-        // header("Location: ./index.php");
+        header("Location: ./index.php");
       }
       if($_GET['function'] == 'script'){
         script();
@@ -109,13 +95,13 @@
 
     if(isset($_POST)){
       if($_POST['function'] == 'update_db'){
-        update_db($_POST['id'],$_POST['password'],$_POST['prenom'],$_POST['nom'],$_POST['classe']);
+        update_db($_POST['id'],$_POST['password'],$_POST['name'],$_POST['last_name'],$_POST['team'],$_POST['class']);
       }
       if($_POST['function'] == 'reinit'){
-        reinit($_POST['nom_vps']);
+        reinit($_POST['vps_name']);
       }
       if($_POST['function'] == 'reinit2'){
-        reinit2($_POST['nom_vps'],$_POST['option_value']);
+        reinit2($_POST['vps_name'],$_POST['template_id']);
       }
       //else{
        // echo 'erreur';
